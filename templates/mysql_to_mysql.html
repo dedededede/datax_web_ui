@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>
+            mysql到mysql
+        </title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js">
+        </script>
+        <script>
+
+</script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#add").click(function() {
+                    $("table tr:last-child").after
+
+                    ("<tr><td> <input type='text' name='column' value=''> </td><td>" + " <select name='column_type' id='select_k1' class='xla_k'> <option value='类型'>选择类型</option> <option value='类型1'>string</option> <option value='类型2'>long</option></select></tr>");
+                });
+                $("#cut").click(function() {
+                    var value = $("table tr").length;
+                    if (value != 2) {
+                        $("table tr:last-child").remove();
+                    }
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(function(){
+
+                $('#submit').click(function() {
+
+                    var params = $('#form1').serialize();
+                    $.ajax({
+                        url: '/mysql_to_mysql',
+                        type: 'post',
+                        dataType: 'json',
+                        data: params,
+                        success: function (res) {
+                            //返回一段提示    某个字段不规范
+                            alert('某个字段不规范');
+                        },
+                        error: function () {
+
+                        }
+                    })
+                })
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <form id="form1">
+            <fieldset>
+                <legend>
+                    写入的配置信息
+                </legend>
+                写的数据库连接地址:
+                <input type="text" name="write_conn_host" value="">
+                <br>
+                写的数据库端口:
+                <input type="text" name="write_conn_host_port" value="">
+                <br>
+                写的数据库名字:
+                <input type="text" name="write_conn_host_db_name" value="">
+                <br>
+                写的数据库表名字:
+                <input type="text" name="write_conn_host_db_table" value="">
+                <br>
+                写的数据库表账号:
+                <input type="text" name="write_conn_host_db_user" value="">
+                <br>
+                写的数据库表密码:
+                <input type="password" name="write_conn_host_db_passwd" value="">
+                <br>
+                写的数据库表操作类型:
+                <input list="do_type" name="do_type_name" autofocus>
+                <datalist id="do_type">
+                    <option value="insert">
+                        <option value="update">
+                </datalist>
+                <br>
+                写的数据库的sql模式:
+                <input list="sql_type" name="sql_type_name" autofocus>
+                <datalist id="sql_type">
+                    <option value="ANSI">
+                    </option>
+                </datalist>
+                <br>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    读的配置信息
+                </legend>
+                读数据库连接地址:
+                <input type="text" name="read_conn_host" value="">
+                <br>
+                读数据库端口:
+                <input type="text" name="read_conn_host_port" value="">
+                <br>
+                读数据库名字:
+                <input type="text" name="read_conn_host_db_name" value="">
+                <br>
+                读数据库表名字:
+                <input type="text" name="read_conn_host_db_table" value="">
+                <br>
+                读数据库表账号:
+                <input type="text" name="read_conn_host_db_user" value="">
+                <br>
+                读数据库表密码:
+                <input type="password" name="read_conn_host_db_passwd" value="">
+                <br>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    表字段信息
+                </legend>
+                <table id="table_info" name="table_info_value">
+                    <tr>
+                        <td>
+                            字段名字
+                        </td>
+                        <td>
+                            字段类型
+                        </td>
+                    </tr>
+                </table>
+                <input id="add" type="button" value="增加">
+                <input id="cut" type="button" value="减少">
+            </fieldset>
+            <fieldset>
+                <legend>
+                    公共配置
+                </legend>
+                并发数:
+                <select id="channel" name="channel">
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                    <option value="5">
+                        5
+                    </option>
+                    <option value="6">
+                        6
+                    </option>
+                    <option value="7">
+                        7
+                    </option>
+                    <option value="8">
+                        8
+                    </option>
+                    <option value="9">
+                        9
+                    </option>
+                    <option value="10">
+                        10
+                    </option>
+                    <option value="11">
+                        11
+                    </option>
+                    <option value="12">
+                        12
+                    </option>
+                    <option value="14">
+                        14
+                    </option>
+                    <option value="14">
+                        14
+                    </option>
+                    <option value="16">
+                        15
+                    </option>
+                    <option value="16">
+                        16
+                    </option>
+                    <option value="17">
+                        17
+                    </option>
+                    <option value="18">
+                        18
+                    </option>
+                    <option value="19">
+                        19
+                    </option>
+                    <option value="20">
+                        20
+                    </option>
+                </select>
+            </fieldset>
+            <input id="submit" type="button" value="submit" >
+        </form>
+    </body>
+
+</html>

@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>rms</title>
+    <link type="text/css" rel="stylesheet" href="http://resource.brandwisdom.cn/css/bootstrap/bt2.min.css">
+    <script type="text/javascript" src="http://resource.brandwisdom.cn/js/191.js"></script>
+</head>
+
+<body>
+
+<style>
+    body {
+        background: #424145;
+    }
+
+    .form-signin {
+        width: 300px;
+        margin: 0 auto;
+        font-size: 14px;
+        height: 300px;
+        color: #fff;
+        margin-top: 200px;
+        text-align: center;
+        font-family: Microsoft YaHei, "Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
+    }
+
+    .btn-btn-danger {
+        background-image: none;
+        background-color: #ec6464;
+        border-color: #ec6464;
+    }
+
+    .btn-btn-danger:active,
+    .btn-btn-danger:focus,
+    .btn-btn-danger:hover {
+        background-color: #ec6161;
+        border-color: #ec6161;
+    }
+
+    .form-signin span.r-password,
+    .form-signin span.r-userName {
+        display: inline-block;
+        width: 19px;
+        height: 19px;
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAATCAYAAADMBm6RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3JpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxYjlmMTdhMi1lNmRmLWNmNDQtOGRkYS0zOGU2YTg5ZDMzZjMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjJCREY3Q0NGMEJBMTFFNTgxRTk4NzI5NUMxNUVDNkIiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MjJCREY3Q0JGMEJBMTFFNTgxRTk4NzI5NUMxNUVDNkIiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo3MjgwN2VhZi1iOTgzLTQzNDItOTNhOC02MmEzYjRhMjhiMTAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MWI5ZjE3YTItZTZkZi1jZjQ0LThkZGEtMzhlNmE4OWQzM2YzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+wA+YKgAAAehJREFUeNrcV00oRFEUnhmD2SgWwisWSiENC0U29mYWrOwkGyvFQmFpS7Gm7JTFrBTWKBEbP01mI6nnZ7Cjhvl5vlNn8dJ9d0zv3juNW1/fnXvunXO+e+5797yg4zgBrzY3O98B6gGqgcu19ZVUoMJbUCQYQltAC0D7L9MJsAnhbyqDgL8aYvzvt27BYY/xGYFYakPAO7ChSKgFGgAa+fcr6AzCH3UJDnmMd0nWNCkS2wqKsdgCg/ox2NpMZ9iRrPlQ5HuQHingCrjgPmW7m20PJjOclqzJK/LdwHyOI5wDsuif8lg9shwyIhiOwkWObVRlABCad/Vzrn7BiGB2mpOsqfqP19IUaMxjzTY2ZcfHyyoOsv44/Rm+drU/w3CyBcoKTLYfsdysEuY2m3ppUbsXjCUrvdKSCbYFYxlNcRwA+2UTjOesDzQM3ABLDOrHYYtqiKNQ5O7XU3hATAQ0CoxzIUB35DXbjvlDYhn9BDgBW0ZHHNoFQ0AnZ5RQ57JPwnYH/gKmXdcSbcgIbIfgI+AW4v1k6MWYYAS9yB8FwmuLN+VTcPxpY+IMEr7qI44JkxnuLTLH5lKTslzrMae/kt7SssqJKq40l38pRdWXXcLcJx0ZjkjsaVetm5TU0ZESaue9cmb4R4ABADKclFn6eh7dAAAAAElFTkSuQmCC");
+        background-repeat: no-repeat;
+        vertical-align: middle;
+    }
+
+    .form-signin span.r-password {
+        background-position: -25px 0;
+    }
+
+    .input-group {
+        position: relative;
+        display: table;
+        border-collapse: separate;
+    }
+    .input-group .form-control, .input-group-addon, .input-group-btn {
+        display: table-cell;
+    }
+
+    .input-group-addon, .input-group-btn {
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child > .btn, .input-group-btn:first-child > .btn-group > .btn, .input-group-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn-group:not(:last-child) > .btn, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input-group-addon {
+        padding: 6px 12px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1;
+        color: #555;
+        text-align: center;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .input-group-addon:first-child {
+        border-right: 0;
+    }
+
+    .input-group .form-control {
+        position: relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+        height: 33px;
+        margin-bottom: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .input-group .form-control, .input-group-addon, .input-group-btn {
+        display: table-cell;
+    }
+    .btn-btn-danger {
+        padding: 6px 12px;
+    }
+</style>
+<div class="container">
+    <form class="form-signin" action="/login">
+        <h2 class="h2" style="font-style:italic">Datax UI</h2>
+        <br/>
+
+        <div class="input-group">
+
+            <span class="input-group-addon">
+                <span class="r-userName"></span>
+            </span>
+            <input type="text" id="userID" class="form-control" placeholder="UserName"/>
+        </div>
+        <br/>
+
+        <div class="input-group">
+            <span class="input-group-addon">
+                <span class="r-password"></span>
+            </span>
+            <input type="password" id="userPwd" class="form-control" placeholder="PassWord"/>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <button type="button" id="singIn" class="btn btn-btn-danger" style="width: 100%;color:#fff;">
+                登录
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $(function () {
+        var $submitBtn = $("#singIn");
+        var submitDefaultVal = $submitBtn.text();
+        $submitBtn.click(function () {
+            if($submitBtn.hasClass('loading'))
+                return;
+            var username = $("input#userID").val();
+            var password = $("input#userPwd").val();
+            $submitBtn.addClass('loading').text('登录中...');
+            $.ajax({
+                url: "/login",
+                type: "post",
+                dataType: 'json',
+                data: {'user': username, 'pwd': password},
+                success: function (result) {
+                    if (result.status.code == '200') {
+                        window.location.href = "/"; //生成后build文件login.html需要修改地址
+                    } else {
+                        $submitBtn.removeClass('loading').text(submitDefaultVal);
+                        alert("账号或密码错误");
+                    }
+                },
+                error: function (data) {
+                    $submitBtn.removeClass('loading').text(submitDefaultVal);
+                    alert('身份验证服务器错误');
+                }
+            })
+        });
+        $(window).keyup(function (e) {
+            if (e.keyCode === 13) {
+                $submitBtn.click();
+            }
+        });
+    });
+</script>
+</body>
+</html>
