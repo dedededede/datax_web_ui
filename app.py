@@ -1,6 +1,9 @@
 # -*- encoding: utf8 -*-
 import os
+import json
 from tornado import web, ioloop
+
+from datahandlers.make_struct import MakeMySQLToMySQL
 
 
 class BaseHandler(web.RequestHandler):
@@ -38,33 +41,29 @@ class Main(web.RequestHandler):
             self.redirect("/login")
             return
 
-        self.redirect('/content')
+        self.redirect('/main')
 
     def post(self, *args, **kwargs):
         pass
 
-class Content(web.RequestHandler):
+class Main(web.RequestHandler):
     def get(self, *args, **kwargs):
-        self.render("content.html")
+        self.render("main.html")
 
 
 class MySQLToMySQL(web.RequestHandler):
+    """mysql-mysql 的数据传输"""
     def post(self, *args, **kwargs):
         post_data = self.request.arguments
-        print "MySQLToMySQL", post_data
-        if post_data:
-            pass
-        else:
-            pass
+        write_para, read_para, common_para = json.loads(post_data['writer'][0]), json.loads(post_data['reader'][0]), json.loads(post_data['setting'][0])
+        obj = MakeMySQLToMySQL(read_para, write_para, common_para)
+        obj.make_struct()
+
 
 class MySQLToOracle(web.RequestHandler):
+    """mysql-oracle 的数据传输"""
     def post(self, *args, **kwargs):
-        post_data = self.request.arguments
-        print "aaa", post_data
-        if post_data:
-            pass
-        else:
-            pass
+        pass
 
 
 
@@ -83,10 +82,9 @@ if __name__ == '__main__':
     app = web.Application(
         [
         ('/login', Login),
-        ('/', Main),
-        ('/content', Content),
-        ('/mysql_to_mysql', MySQLToMySQL),
-        ('/mysql_to_oracle', MySQLToOracle),
+        ('/main', Main),
+        ('/mysql_to_mysql', MySQLToMySQL)
+
 
                            ], **settings)
     app.listen(8888)

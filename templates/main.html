@@ -1,14 +1,478 @@
+<!doctype html>
 <html>
 <head>
-<title>����ҳ��</title>
-<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>rms</title>
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="../static/js/vapour.js"></script>
+    <script type="text/javascript" src="../static/js/jquery191.min.js"></script>
+    <script type="text/javascript" src="../static/js/main.js"></script>
 </head>
-  <frameset id="frame" rows="*" cols="265,*" framespacing="0" frameborder="yes" border="0">
-    <frame src="content.html" name="leftFrame" scrolling="auto" noresize>
-    <frame src="content1.html" name="contentFrame" scrolling="NO"  noresize>
-  </frameset>
-<noframes>
-<body>
+
+<body ng-app="myApp">
+<div class="container-fluid" ng-controller="myController">
+    <div class="row">
+        <h1>数据传输平台</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>mysql源</label>
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" ng-class="{'active': 1 === TabState}" ng-click="tabClick(1)"><a href="#">mysql</a></li>
+                <li role="presentation" ng-class="{'active': 2 === TabState}" ng-click="tabClick(2)"><a href="#">oracle</a></li>
+                <li role="presentation" ng-class="{'active': 3 === TabState}" ng-click="tabClick(3)"><a href="#">sqlserver</a></li>
+            </ul>
+            <label>文件数据源</label>
+            <ul class="nav nav-pills nav-stacked" role="tablist">
+                <li role="presentation" class="active"><a href="#">mysql</a></li>
+                <li role="presentation"><a href="#">oracle</a></li>
+                <li role="presentation"><a href="#">sqlserver</a></li>
+            </ul>
+
+        </div>
+        <div class="col-md-10">
+            <div ng-show="1 === TabState">
+               <div class="row">
+                   <div class="col-md-6">
+                       <div class="">
+                           <form class="form-signin" action="">
+                               <div class="panel panel-default">
+                                   <div class="panel-heading">Writer</div>
+                                   <div class="panel-body">
+                                       <div class="form-group">
+                                           <label>数据库连接地址</label>
+                                           <input type="text"  class="form-control" placeholder="数据库连接地址" ng-model="writer.name"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库端口</label>
+                                           <input type="text"  class="form-control" placeholder="数据库端口"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表账号</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表账号"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表密码</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表密码"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>操作类型</label>
+                                           <br/>
+                                           <div drop-list data="config.MODE" active="writer.writeMode"></div>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库的sql模式</label>
+                                           <br/>
+                                           <div drop-list data="config.ANSI" active="writer.sql_mode"></div>
+                                       </div>
+                                       <br/>
+                                   </div>
+                               </div>
+
+
+                           </form>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="">
+                           <form class="form-signin" action="">
+                               <div class="panel panel-default">
+                                   <div class="panel-heading">Reader</div>
+                                   <div class="panel-body">
+                                       <div class="form-group">
+                                           <label>数据库连接地址</label>
+                                           <input type="text"  class="form-control" placeholder="数据库连接地址" ng-model="writer.name"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库端口</label>
+                                           <input type="text"  class="form-control" placeholder="数据库端口"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表账号</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表账号"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表密码</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表密码"/>
+                                       </div>
+                                       <br/>
+                                        <div class="form-group">
+                                           <label>查询语句</label>
+                                           <input type="text"  class="form-control" placeholder="查询语句"/>
+                                       </div>
+                                       <br/>
+                                   </div>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12">
+                       <div class="panel panel-default">
+                           <div class="panel-heading">公共配置</div>
+                           <div class="panel-body">
+                               <label>字段信息</label>
+                               <br>
+                               <button type="button" class="btn btn-success" ng-click="addData()">
+                                   <span class="glyphicon glyphicon-plus"></span> 添加
+                               </button>
+                               <br><br>
+                               <div drop-list-group data="setting.column"></div>
+                               <br/><br/>
+                               <div class="form-group">
+                                   <label>并发数</label>
+                                   <br/>
+                                   <div drop-list data="config.juxtaposed" active="setting.juxtaposed"></div>
+                               </div>
+                               <br/>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12" style="text-align: center;">
+                       <div class="form-group">
+                           <button type="button" class="btn btn-primary" ng-click="saveData()">
+                               <span class="glyphicon glyphicon-ok"></span>  提交
+                           </button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+            <div ng-show="2 === TabState">
+                <div class="row">
+                   <div class="col-md-6">
+                       <div class="">
+                           <form class="form-signin" action="">
+                               <div class="panel panel-default">
+                                   <div class="panel-heading">Writer</div>
+                                   <div class="panel-body">
+                                       <div class="form-group">
+                                           <label>数据库连接地址</label>
+                                           <input type="text"  class="form-control" placeholder="数据库连接地址" ng-model="writer.name"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库端口</label>
+                                           <input type="text"  class="form-control" placeholder="数据库端口"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表账号</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表账号"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表密码</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表密码"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表操作类型</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表操作类型"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库的sql模式</label>
+                                           <br/>
+                                           <div drop-list data="config.ANSI" active="writer.sss"></div>
+                                       </div>
+                                       <br/>
+                                   </div>
+                               </div>
+
+
+                           </form>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="">
+                           <form class="form-signin" action="http://t-rms.brandwisdom.cn/py/account/login">
+                               <div class="panel panel-default">
+                                   <div class="panel-heading">Reader</div>
+                                   <div class="panel-body">
+                                       <div class="form-group">
+                                           <label>数据库连接地址</label>
+                                           <input type="text"  class="form-control" placeholder="数据库连接地址" ng-model="writer.name"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库端口</label>
+                                           <input type="text"  class="form-control" placeholder="数据库端口"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表名字</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表名字"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表账号</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表账号"/>
+                                       </div>
+                                       <br/>
+                                       <div class="form-group">
+                                           <label>数据库表密码</label>
+                                           <input type="text"  class="form-control" placeholder="数据库表密码"/>
+                                       </div>
+                                       <br/>
+                                   </div>
+                               </div>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12">
+                       <div class="panel panel-default">
+                           <div class="panel-heading">公共配置</div>
+                           <div class="panel-body">
+                               <label>字段信息</label>
+                               <br>
+                               <button type="button" class="btn btn-success" ng-click="addData()">
+                                   <span class="glyphicon glyphicon-plus"></span> 添加
+                               </button>
+                               <br><br>
+                               <div drop-list-group data="setting.column"></div>
+                               <br/><br/>
+                               <div class="form-group">
+                                   <label>并发数</label>
+                                   <br/>
+                                   <div drop-list data="config.juxtaposed" active="setting.juxtaposed"></div>
+                               </div>
+                               <br/>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12" style="text-align: center;">
+                       <div class="form-group">
+                           <button type="button" class="btn btn-primary" ng-click="saveData()">
+                               <span class="glyphicon glyphicon-ok"></span>  提交
+                           </button>
+                       </div>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var ngModule = angular.module('myApp', ['vapour']);
+    ngModule.controller('myController', function ($scope, $http) {
+        $scope.TabState = 1;
+        $scope.tabClick = function (index) {
+            $scope.TabState = index;
+        }
+        $scope.config = {
+            ANSI : [
+                {
+               key: 'ANSI',
+               values: 'ANSI'
+                }
+            ],
+            MODE :[
+                {
+                    key: 'insert',
+                    values: 'insert'
+                },
+                {
+                    key: 'update',
+                    values: 'update'
+                }
+
+            ],
+
+            juxtaposed : [
+                {
+                    key: 1,
+                    values: '1'
+                },
+                {
+                    key: 2,
+                    values: '2'
+                },
+                {
+                    key: 3,
+                    values: '3'
+                },
+                {
+                    key: 4,
+                    values: '4'
+                },
+                {
+                    key: 5,
+                    values: '5'
+                },
+                {
+                    key: 6,
+                    values: '6'
+                },
+                {
+                    key: 7,
+                    values: '7'
+                },
+                {
+                    key: 8,
+                    values: '8'
+                },
+                {
+                    key: 9,
+                    values: '9'
+                },
+                {
+                    key: 10,
+                    values: '10'
+                }
+
+            ]
+        };
+        //添加字段
+        $scope.addData = function ( ) {
+            $scope.setting.column.push({
+                type:'string',
+                values: ''
+            }
+                    )
+        };
+        //公共字段
+        $scope.setting = {
+            juxtaposed: 1,
+            column:  [
+                {
+                    type: 'string',
+                    values: ''
+                }
+
+            ]
+        };
+        //写的配置
+        $scope.writer = {
+            name: 'mysqlwriter',
+            host: '',
+            db: '',
+            port: '',
+            table: '',
+            sql_mode: '',
+            username: '',
+            password: '',
+            writeMode: ''
+        };
+        //读的配置
+        $scope.reader = {
+            host: '',
+            db: '',
+            port: '',
+            table: '',
+            username: '',
+            password: '',
+            querysql: [],
+            name: 'mysqlreader'
+        };
+        $scope.saveData = function () {
+            var params = {
+                reader: $scope.reader,
+                writer: $scope.writer,
+                setting: $scope.setting
+            };
+
+            var param = {
+                url: '/mysql_to_mysql',
+                method: 'POST',
+                params: paramChange(params)
+
+            };
+
+            $http(param)
+            .success(function (res) {
+
+                let status = res.status;
+                if (status.code == 200) {
+                   console.log(res)
+                }
+
+            })
+
+            .error(function(res)  {
+                alert(res);
+                let status = res.status;
+                if (status.code == 400) {
+                   console.log(res)
+                }
+            })
+        }
+    });
+
+
+    //转化参数类型
+    function paramChange (data) {
+        var newData = {};
+
+        for (var key in data) {
+            var item = data[key];
+            if (item !== undefined) {
+                var type = Object.prototype.toString.call(item);
+                if (type === '[object Array]' || type === '[object Object]') {
+                    item = JSON.stringify(item);
+                }
+
+                newData[key] = item;
+            }
+        }
+
+        return newData;
+    }
+</script>
 </body>
-</noframes>
 </html>

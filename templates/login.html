@@ -161,7 +161,7 @@
                 data: {'user': username, 'pwd': password},
                 success: function (result) {
                     if (result.status.code == '200') {
-                        window.location.href = "/"; //生成后build文件login.html需要修改地址
+                        window.location.href = "/main"; //生成后build文件login.html需要修改地址
                     } else {
                         $submitBtn.removeClass('loading').text(submitDefaultVal);
                         alert("账号或密码错误");
