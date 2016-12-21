@@ -10,11 +10,11 @@ class HTTPAPIError(HTTPError):
     API server always returns formatted JSON to client even there is
     an internal server error.
     """
-    def __init__(self, status_code=400, log_message=None, *args, **kwargs):
+    def __init__(self, status_code=200, log_message=None, *args, **kwargs):
         super(HTTPAPIError, self).__init__(int(status_code), log_message, *args)
-        self.error_type = kwargs.get('error_type', None)
-        self.error_data = kwargs.get('error_data', {})
+        self.error_data = kwargs.get('error_data', None)
+        self.error_code = kwargs.get('error_code', None)
 
     def __str__(self):
-        err = {"status": {"code": self.status_code, "msg": self.error_type}, "data": self.error_data}
+        err = {"code": self.error_code, "msg": self.error_data}
         return escape.json_encode(err)

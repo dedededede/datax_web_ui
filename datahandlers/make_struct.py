@@ -1,6 +1,6 @@
 # -*- encoding: utf8 -*-
 import tornado
-from config.config import mysql_to_mysql_job_template
+from config.settings import mysql_to_mysql_job_template
 from libs.exceptions import HTTPAPIError
 
 
@@ -10,10 +10,8 @@ class CheckPara(object):
         read_value = [read[key] for key in read]
         write_value = [write[key] for key in write]
         common_value = [common[key] for key in common]
-
-        if any(read_value) or any(write_value) or any(common_value):
-            raise HTTPAPIError(status_code=400, error_data=400, error_type='参数错误')
-
+        if not (any(read_value) or any(write_value) or any(common_value)):
+            raise HTTPAPIError(error_data='参数错误', error_code=400)
 
 class MakeMySQLToMySQL(CheckPara):
     def __init__(self, read, write, common):
@@ -23,6 +21,15 @@ class MakeMySQLToMySQL(CheckPara):
         super(MakeMySQLToMySQL, self).__init__(read, write, common)
 
     def make_struct(self):
+        '''
+        read_value = [self.read_data[key] for key in self.read_data]
+        write_value = [self.write_data[key] for key in self.write_data]
+        common_value = [self.common[key] for key in self.common]
+
+        if any(read_value) or any(write_value) or any(common_value):
+            return HTTPAPIError(status_code=200, error_data='参数错误', error_code=400)
+
+        '''
 
         job_demo = mysql_to_mysql_job_template
         job_demo['job']['setting']['speed']['channel'] = int(self.common['juxtaposed'])
@@ -56,25 +63,6 @@ class MakeMySQLToMySQL(CheckPara):
 
         job_demo['job']['content'][0]['reader'] = read_demo
         job_demo['job']['content'][0]['writer'] = write_demo
-
         print job_demo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -1,91 +1,53 @@
-# -*- encoding: utf8 -*-
 import os
+import sys
 import json
-from tornado import web, ioloop
+import datetime
 
-from datahandlers.make_struct import MakeMySQLToMySQL
+from tornado import web
+from tornado.ioloop import IOLoop
+from tornado.httpserver import HTTPServer
+from tornado.options import options
 
-
-class BaseHandler(web.RequestHandler):
-    """docstring for BaseHandler"""
-    def get_current_user(self):
-        username = self.get_secure_cookie('user')
-
-        if not username:
-            return None
-
-        # 这里还可以加一些其他的东西，比如时间戳啊 token 啊之类的校验
+from libs.options import parse_options
 
 
-class Login(web.RequestHandler):
-    def get(self, *args, **kwargs):
-        self.render('login.html')
+class Application(web.Application):
+    def __init__(self):
+        from urls import handlers, ui_modules
 
-    def post(self, *args, **kwargs):
-        login_info = self.request.arguments
-        try:
-            user = login_info['user'][0]
-            passwd = login_info['pwd'][0]
-            if user == 'test' and passwd == 'test':
-                self.write({'status': {'code': 200}})
-                self.set_secure_cookie("user", user)
+        settings = dict(debug=options.debug,
+                        template_path=os.path.join(os.path.dirname(__file__), 'templates'),
+                        static_path=os.path.join(os.path.dirname(__file__), 'static'),
+                        ui_modules=ui_modules)
 
-            else:
-                self.write({'status':{'code': 400}})
-        except Exception as e:
-            pass
+        super(Application, self).__init__(handlers, **settings)
 
-class Main(web.RequestHandler):
-    def get(self, *args, **kwargs):
-        if not self.get_secure_cookie('user'):
-            self.redirect("/login")
-            return
+    def reverse_api(self, request):
+        """Returns a URL name for a request"""
+        handlers = self._get_host_handlers(request)
 
-        self.redirect('/main')
+        for spec in handlers:
+            match = spec.regex.match(request.path)
+            if match:
+                return spec.name
 
-    def post(self, *args, **kwargs):
-        pass
+        return None
 
-class Main(web.RequestHandler):
-    def get(self, *args, **kwargs):
-        self.render("main.html")
+def proc_init():
+    project_dir = os.path.dirname(os.path.abspath(__file__))
+    sys.path.append(project_dir)
+    os.chdir(project_dir)
 
 
-class MySQLToMySQL(web.RequestHandler):
-    """mysql-mysql 的数据传输"""
-    def post(self, *args, **kwargs):
-        post_data = self.request.arguments
-        write_para, read_para, common_para = json.loads(post_data['writer'][0]), json.loads(post_data['reader'][0]), json.loads(post_data['setting'][0])
-        obj = MakeMySQLToMySQL(read_para, write_para, common_para)
-        obj.make_struct()
+def main():
+    proc_init()
+    parse_options()
+    http_server = HTTPServer(Application(), xheaders=True)
+    http_server.bind(int(options.port), '127.0.0.1')  # listen local only
+    http_server.start(1)
 
-
-class MySQLToOracle(web.RequestHandler):
-    """mysql-oracle 的数据传输"""
-    def post(self, *args, **kwargs):
-        pass
-
-
-
-class ProcessMySQLToMySQL(web.RequestHandler):
-    def post(self, *args, **kwargs):
-        pass
+    IOLoop.instance().start()
 
 
 if __name__ == '__main__':
-    settings = {
-        "cookie_secret": "61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
-        "template_path": os.path.join(os.path.dirname(__file__), 'templates'),
-        "static_path": os.path.join(os.path.dirname(__file__), "static"),
-        "debug": True
-    }
-    app = web.Application(
-        [
-        ('/login', Login),
-        ('/main', Main),
-        ('/mysql_to_mysql', MySQLToMySQL)
-
-
-                           ], **settings)
-    app.listen(8888)
-    ioloop.IOLoop.instance().start()
+    main()
