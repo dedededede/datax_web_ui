@@ -12,7 +12,7 @@ class CheckPara(object):
         common_value = [common[key] for key in common]
 
         if any(read_value) or any(write_value) or any(common_value):
-            raise HTTPAPIError(status_code=400, error_data=400, error_type='参数错误')
+            raise HTTPAPIError(status_code=200, error_data=400, error_type='参数错误')
 
 
 class MakeMySQLToMySQL(CheckPara):

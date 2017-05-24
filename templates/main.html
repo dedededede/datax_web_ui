@@ -166,7 +166,7 @@
                <div class="row">
                    <div class="col-md-12" style="text-align: center;">
                        <div class="form-group">
-                           <button type="button" class="btn btn-primary" ng-click="saveData()">
+                           <button type="button" class="btn btn-primary" ng-click="saveData('mysql_to_mysql')">
                                <span class="glyphicon glyphicon-ok"></span>  提交
                            </button>
                        </div>
@@ -297,7 +297,7 @@
                <div class="row">
                    <div class="col-md-12" style="text-align: center;">
                        <div class="form-group">
-                           <button type="button" class="btn btn-primary" ng-click="saveData()">
+                           <button type="button" class="btn btn-primary" ng-click="saveData('')">
                                <span class="glyphicon glyphicon-ok"></span>  提交
                            </button>
                        </div>
@@ -399,7 +399,7 @@
         };
         //写的配置
         $scope.writer = {
-            name: 'mysqlwriter',
+            name: '',
             host: '',
             db: '',
             port: '',
@@ -418,9 +418,18 @@
             username: '',
             password: '',
             querysql: [],
-            name: 'mysqlreader'
+            name: ''
         };
-        $scope.saveData = function () {
+        $scope.saveData = function (url) {
+
+            if (url == 'mysql_to_mysql'){
+                $scope.reader.name = 'mysqlreader';
+                $scope.writer.name = 'mysqlwriter';
+            }
+            else if (url == "mysql_to_oracle"){
+
+            }
+
             var params = {
                 reader: $scope.reader,
                 writer: $scope.writer,
@@ -428,7 +437,7 @@
             };
 
             var param = {
-                url: '/mysql_to_mysql',
+                url: '/' + url,
                 method: 'POST',
                 params: paramChange(params)
 
@@ -438,8 +447,11 @@
             .success(function (res) {
 
                 let status = res.status;
-                if (status.code == 200) {
+                if (status.data == 200) {
                    console.log(res)
+                }
+                else{
+                    alert(res);
                 }
 
             })

@@ -46,7 +46,7 @@ class Main(web.RequestHandler):
     def post(self, *args, **kwargs):
         pass
 
-class Main(web.RequestHandler):
+class MainContent(web.RequestHandler):
     def get(self, *args, **kwargs):
         self.render("main.html")
 
@@ -65,8 +65,6 @@ class MySQLToOracle(web.RequestHandler):
     def post(self, *args, **kwargs):
         pass
 
-
-
 class ProcessMySQLToMySQL(web.RequestHandler):
     def post(self, *args, **kwargs):
         pass
@@ -82,10 +80,9 @@ if __name__ == '__main__':
     app = web.Application(
         [
         ('/login', Login),
-        ('/main', Main),
+        ('/main', MainContent),
         ('/mysql_to_mysql', MySQLToMySQL)
 
-
-                           ], **settings)
+        ], **settings)
     app.listen(8888)
     ioloop.IOLoop.instance().start()

@@ -16,5 +16,5 @@ class HTTPAPIError(HTTPError):
         self.error_data = kwargs.get('error_data', {})
 
     def __str__(self):
-        err = {"status": {"code": self.status_code, "msg": self.error_type}, "data": self.error_data}
+        err = {"code": self.status_code, "msg": self.error_type}
         return escape.json_encode(err)
